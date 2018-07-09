@@ -71,7 +71,7 @@ class CreateProfile extends Component{
 // end photo
 const styles = {
 	containerStyle:{
-    // backgroundColor: '#d0ece7',
+    backgroundColor: '#fff',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
@@ -114,7 +114,7 @@ const styles = {
     color: '#5d6d7e',
   },
   serviceButton:{
-  	backgroundColor: 'orange',
+  	backgroundColor: '#77C9D4',
   	color: '#ffffff',
   	padding: 10,
   	borderRadius: 5,

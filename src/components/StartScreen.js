@@ -36,7 +36,7 @@ componentWillMount(){
         return(
         	<View style={styles.containerStyle}>
 	        	<View style={{flexDirection:'row', flexWrap:'wrap'}}>
-	        		<Text style={styles.textStyle}>emerGeo</Text>
+	        		<Text style={styles.textStyle}>emergeo</Text>
 	        	</View>
 
 	        	<View >
@@ -46,9 +46,7 @@ componentWillMount(){
 	        	<View >
 	        		<Auth loggedIn={loggedIn} currentUser={currentUser} navigate={navigate}/>
 	        	</View>
-	        	<View>
-	        		<Button title="create profile" onPress={()=>this.props.navigation.navigate('CreateProf')} />
-	        	</View>
+	        	
         	</View>
      );   
     };
@@ -57,7 +55,7 @@ componentWillMount(){
 
 var styles = StyleSheet.create({
 	containerStyle:{
-		// backgroundColor: '#d0ece7',
+		backgroundColor: '#fff',
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center'
@@ -67,8 +65,8 @@ var styles = StyleSheet.create({
 		color: '#77C9D4'
 	},
   imageStyle: {
-  	height:200,
-  	width:100,
+  	height:150,
+  	width:80,
   	marginTop:15,
   	marginBottom: 35,
   },

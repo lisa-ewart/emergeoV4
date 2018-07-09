@@ -151,10 +151,10 @@ const styles = {
     borderWidth: 1,
     borderColor:'#CCCCCC',
     shadowColor: '#CCC',
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: { width: 0, height: .5 },
     shadowOpacity: 0.8,
-    shadowRadius: 1,
-    elevation: 1,
+    shadowRadius: .5,
+    // elevation: 1,
 
   }
 };

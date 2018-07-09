@@ -84,7 +84,7 @@ _requestLocation = async () =>{
       
       <Provider store={store}>
         <View style={styles.container}>
-          <ServiceList screenProps={{loggedIn, currentUser}}/>
+          <AppStackNavigator screenProps={{loggedIn, currentUser}}/>
         </View>
       </Provider>
 
