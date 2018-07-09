@@ -1,0 +1,3 @@
+rootProject.name = 'emergeoV4'
+
+include ':app'
