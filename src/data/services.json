@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "name": "HVAC"
+        
+    },
+    {
+        "id": 2,
+        "name": "Electrician"
+
+    },
+    {
+        "id": 3,
+        "name": "Plumber"
+
+    },
+    {
+        "id": 4,
+        "name": "Dog Walker"
+
+    },
+    {
+        "id": 5,
+        "name": "Landscape"
+
+    },
+    {
+        "id": 6,
+        "name": "Windows"
+
+    },
+    {
+        "id": 7,
+        "name": "Auto Mechanic"
+
+    },
+    {
+        "id": 8,
+        "name": "Personal Trainer"
+
+    },
+    {
+        "id": 9,
+        "name": "Mover"
+
+    }
+]

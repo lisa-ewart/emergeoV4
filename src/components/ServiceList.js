@@ -1,41 +1,60 @@
 import React,{ Component} from 'react';
-import {ListView, Text, View} from 'react-native';
+import {FlatList, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import {services} from '../reducers';
 import {getServices} from '../actions/getServicesAction';
+import MultiSelect from 'react-native-multiple-select';
+
+import srvcs from '../data/services.json';
 
 class ServiceList extends Component {
+	state ={
+		selectedItems: []
+	}
+
 	componentWillMount(){
 		this.props.getServices(); 
 
-		const ds = new ListView.DataSource({
-			rowHasChanged: (r1, r2) => r1 !== r2
-		});
 
-		this.dataSource = ds.cloneWithRows(this.props.services)
 	}
 
-	// renderRow(rowData, serviceID){
-	// 	return(
-	// 		<View>
-	// 		<Text>
-	// 		{rowData}
-	// 		</Text>
-	// 		</View>
-
-	// 	)
-	// }
+	onSelectedItemsChange = selectedItems => {
+    	this.setState({ selectedItems });
+  };
 
 	render(){
-		console.log(this.props)
+		const data = this.props.services
+
+		
+	
 		return(
-			<View>
-			<ListView
-				dataSource = {this.dataSource}
-				renderRow = {(rowData) => <Text>{rowData}</Text>}
-			/>
+			<View style={{flex: 1}}>
+				<MultiSelect
+					hideTags
+					items={srvcs}
+					uniqueKey="id"
+					ref={(component) => { this.multiSelect = component }}
+					onSelectedItemsChange={this.onSelectedItemsChange}
+					selectedItems={this.state.selectedItems}
+					selectText="Pick Items"
+					searchInputPlaceholderText="Search Items..."
+					onChangeInput={ (text)=> console.log(text)}
+					altFontFamily="ProximaNova-Light"
+					tagRemoveIconColor="#CCC"
+					tagBorderColor="#CCC"
+					tagTextColor="#CCC"
+					selectedItemTextColor="#CCC"
+					selectedItemIconColor="#CCC"
+					itemTextColor="#000"
+					displayKey="name"
+					fontSize={20}
+					itemFontSize={20}
+					searchInputStyle={{ color: '#CCC' }}
+					submitButtonColor="#CCC"
+					submitButtonText="Submit"
+					/>
 			
-			</View>
+      </View>
 		)
 	}
 
