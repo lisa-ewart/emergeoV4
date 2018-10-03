@@ -7,20 +7,44 @@ import {
   Modal,
   Image, 
   StatusBar,
-  TouchableHighlight,
+  Header,
   TouchableOpacity,
-  TextInput, ScrollView
+
 } from 'react-native';
-import {Icon } from 'native-base';
+import {Icon,
+        Content,
+        List,
+        ListItem,
+        Container,
+        Left,
+        Right,
+        Thumbnail,
+ } from 'native-base';
+ import AccordionExample from './Accordion';
+ // import {logOut} from './Auth';
+ import SignOutButton from './SignOutButton';
 
 export default class Settings extends Component {
+
+
   render() {
-    return (
-      <View style={styles.containerStyle}>
-        <Text>
-          Settings
-        </Text>
-      </View>
+
+    // console.log(logOut);
+    return (  
+         <Content>
+        <View>
+        <StatusBar hidden={true} />
+          <View style={styles.profileBox}>
+            <Left>
+                <Thumbnail source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOOzYELSp-WXLev_yXSO05oonmSy6Qz73IY3nWgvBq4Geg_g-3'}} />
+            </Left>
+          </View>
+         <AccordionExample />
+        </View>
+        <View>
+          <SignOutButton />
+        </View>
+        </Content>
     );
   }
 }
@@ -48,6 +72,13 @@ const styles = StyleSheet.create({
     marginRight: 5,
     marginTop: 10,
     alignItems: 'center'
+  },
+  profileBox:{
+    height: 80,
+    backgroundColor: '#77C9D4',
+    padding:10,
+    flex:1,
+
   }
 
 });
