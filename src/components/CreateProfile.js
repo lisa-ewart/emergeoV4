@@ -15,31 +15,61 @@ import { StyleSheet,
 	    ScrollView, 
       StatusBar, Image
 	    } from 'react-native';
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
+import RadioForm, {RadioButton, RadioGroup, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import { Container, Header, Content, Footer, FooterTab, Button, Icon, CheckBox, ListItem, Body} from 'native-base';
 import {StackNavigator} from 'react-navigation';
+
+
+import {database} from '../firebase';
+import {app} from '../firebase';
+// import ServicesProvided from './ServicesProvided';
+
 
 var radio_props = [
   {label: 'yes', value: 0 },
   {label: 'no', value: 1 }
 ];
- 
+
+function writeUserData(userId, name) {
+  firebase.database().ref('users/' + userId).set({
+    username: username
+  });
+}
 
 class CreateProfile extends Component{
+
+  state = {
+    username: "",
+    services: ""
+  }
+ 
     render(){  
+      const {navigate} = this.props.navigation
+      const {username} = this.state;
+      console.log(this.state);
+      console.log("testLisa")
         return(
         	<Container style={styles.containerStyle} >
           <StatusBar hidden={true} />
 
         	<View>
         	<View style={styles.containerStyle}>
-            
+            <View >
+              <Image style={styles.imageStyle} source={require('../components/logo.png')} />
+            </View>
 
         	  <View>
-	        	<Text style={styles.textStyle}>Profile Setup</Text>
+	        	<Text style={styles.textStyle}>Create a Username</Text>
 	          </View>
 
-            <TextInput style={styles.inputStyle} placeholder="choose a username"></TextInput>
+            <TextInput 
+              style={styles.inputStyle}   
+              placeholder="choose a username"
+              onChangeText = {(username)=>this.setState({username})}
+              value = {username}
+              >
+
+            </TextInput>
 
 	          <Text style={{color:'green', fontSize: 15, fontWeight:'bold', marginTop:30, marginBottom: 30}}>Will You Provide a Service on Emergeo?</Text>
             
@@ -47,16 +77,24 @@ class CreateProfile extends Component{
              <RadioForm
               radio_props={radio_props}
               initial={0}
-              buttonColor={'green'}
-              buttonInnerColor={'green'}
-              buttonOuterColor={'green'}
-              buttonSize={3}
+              buttonColor={'#ccc'}
+              buttonInnerColor={'#ccc'}
+              buttonOuterColor={'#ccc'}
+              selectedButtonColor={'#77C9D4'}
+              buttonSize={7}
               formHorizontal={true}
+              labelStyle={{paddingRight: 25}}
+              labelColor={'#ccc'}
+              selectedLabelColor={'green'}
               onPress={(value) => {this.setState({value:value})}}
             />
             </View>
+            <ScrollView>
+              <TouchableOpacity onPress={this.writeUserData} style={styles.serviceButton}> <Text>Services</Text></TouchableOpacity>
+            </ScrollView>
+
             <View style={styles.center}>
-             <Button style={styles.serviceButton}><Text style={styles.buttonText}>Next</Text></Button>
+             <TouchableOpacity onPress={()=>this.props.navigation.navigate('MyProfile')} style={styles.serviceButton}><Text style={styles.buttonText}>Next</Text></TouchableOpacity>
              </View>
         	</View>
 
@@ -71,14 +109,14 @@ class CreateProfile extends Component{
 // end photo
 const styles = {
 	containerStyle:{
-    backgroundColor: '#fff',
+    backgroundColor: '#E9F5F7',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
   imageStyle: {
-    height:180,
-    width:100,
+    height:100,
+    width:70,
     marginTop:5,
     marginBottom: 35,
   },
@@ -115,7 +153,6 @@ const styles = {
   },
   serviceButton:{
   	backgroundColor: '#77C9D4',
-  	color: '#ffffff',
   	padding: 10,
   	borderRadius: 5,
   	marginTop:25,

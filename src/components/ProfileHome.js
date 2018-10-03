@@ -152,7 +152,6 @@ state = {
             <Button>
               <Icon name="search" />
             </Button>
-            {/*<Button active>*/}
             <Button>
               <Icon active name="mail" />
             </Button>

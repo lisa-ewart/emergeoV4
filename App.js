@@ -1,8 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+//can't create a new user with a new email address and can't sign in with an existing account
+//need to be able to change sign in button to sign out and add change navigation to create account/sign in button so that it go to create profile or profile page
 
 import React, { Component } from 'react';
 import {
@@ -10,7 +7,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  StatusBar
 } from 'react-native';
 import {app, auth, database} from './src/firebase';
 import {applyMiddleware, createStore} from 'redux';
@@ -25,20 +23,41 @@ import StartScreen from './src/components/StartScreen.js';
 import ChatScreen from './src/components/Chat.js';
 import CreateProfile from './src/components/CreateProfile.js';
 import ProfileHome from './src/components/ProfileHome.js';
+import Home from './src/components/Profile.js';
 import ServiceList from './src/components/ServiceList.js';
 import Auth from './src/components/Auth.js';
+import AccordionExample from './src/components/Accordion';
+// import ImageSelector from './src/components/ImageSelector.js';
+
 
 
 const AppStackNavigator = createStackNavigator({
   StartScreen: {screen: StartScreen},
-    CreateProf: {screen: CreateProfile},
-    MyProfile: {screen: ProfileHome},
+    CreateProf: {screen: CreateProfile,
+      navigationOptions: {
+      title: "Create Your Profile",
+      headerLeft: null,
+    },
+
+    },
+    MyProfile: {screen: Home,
+      navigationOptions: {
+      title: "Home",
+      headerLeft: null,
+      header: null,
+    },
+
+    },
     Message: {screen: ChatScreen}
 })
 
 
 
 class App extends Component {
+
+
+
+
   state = { loggedIn: null, currentUser: null}
 componentWillMount(){
   app;
@@ -68,10 +87,6 @@ _requestLocation = async () =>{
   }
 }
 
-
-
-
-
   render() {
     const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
     const store = createStoreWithMiddleware(rootReducers);
@@ -81,9 +96,10 @@ _requestLocation = async () =>{
 
     return (
 
-      
+       
       <Provider store={store}>
         <View style={styles.container}>
+         <StatusBar hidden={true} />
           <AppStackNavigator screenProps={{loggedIn, currentUser}}/>
         </View>
       </Provider>

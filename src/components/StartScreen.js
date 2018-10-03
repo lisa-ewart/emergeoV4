@@ -13,7 +13,9 @@ import { StyleSheet,
 	    Button,
 	    View,
 	    TouchableHighlight, TouchableOpacity,
-	    Image,} from 'react-native';
+	    Image,
+	    StatusBar
+	} from 'react-native';
 import Auth from './Auth.js';
 import {connect} from 'react-redux';
 
@@ -35,6 +37,7 @@ componentWillMount(){
 
         return(
         	<View style={styles.containerStyle}>
+        	 <StatusBar hidden={true} />
 	        	<View style={{flexDirection:'row', flexWrap:'wrap'}}>
 	        		<Text style={styles.textStyle}>emergeo</Text>
 	        	</View>

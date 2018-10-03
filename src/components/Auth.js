@@ -6,6 +6,7 @@ import { StyleSheet,
         View,
         TouchableHighlight, 
         TouchableOpacity,
+        StatusBar
 	    } from 'react-native';
 import {auth} from '../firebase';
 
@@ -46,7 +47,7 @@ class Auth extends Component{
       console.log(this.props)
         return(
           <View style={styles.containerStyle}>
-
+             <StatusBar hidden={true} />
             <View>
               <TextInput placeholder="email" 
                           style={styles.inputStyle} 
@@ -82,29 +83,31 @@ class Auth extends Component{
   
 
     auth.signInWithEmailAndPassword(email, password).then(()=>{
-  
-           this.props.navigate('CreateProf')
+          this.props.navigate('Home')
+           
            console.log('im hit')
 
     }).catch((e)=>{
         alert(e.message)
-          // auth.createUserWithEmailAndPassword(email, password).then(()=>{
-          //       alert("USER CREATED")
-                // navigate to next screen
+          auth.createUserWithEmailAndPassword(email, password).then(()=>{
+                alert("USER CREATED")
+                this.props.navigate('CreateProf')
+                
 
-          // }).catch((e)=>{
-          //   alert(e.code)
-          //   alert(e.message)
-          // })
+          }).catch((e)=>{
+            alert(e.code)
+            alert(e.message)
+          })
   
     })
   }
 // end function
 
 // LogOut function
-_logOut() {
+_logOut(){
   navigator.geolocation.stopObserving();
   auth.signOut();
+  this.props.navigate('StartScreen');
 
 }
 // end function

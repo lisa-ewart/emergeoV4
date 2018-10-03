@@ -1,3 +1,9 @@
+//change likes to 5-star rating
+//how many jobs completed
+//jobs completed in firebase database
+
+
+
 import React, { Component } from 'react';
 import {
   Platform,

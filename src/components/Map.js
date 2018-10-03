@@ -1,133 +1,94 @@
+import React,{Component} from 'react';
+import {Text,
+		Card,
+		View,
+		StyleSheet
+} from 'react-native';
+import {MapView, Marker, AnimatedRegion} from 'react-native-maps';
 
-//change button (service) to question with check boxes
-//add new screen with services to select
-//change select username to enter first name and last name
-//remove mini bio and photo select from create profile 
-
-
-
-import React, { Component } from 'react';
-import { StyleSheet,
-	    Text,
-      	TextInput,
-	    View,
-	    TouchableOpacity,
-	    ScrollView, 
-      StatusBar
-	    } from 'react-native';
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
+const {width, height} = Dimensions.get('window')
 
 
-var radio_props = [
-  {label: 'param1', value: 0 },
-  {label: 'param2', value: 1 }
-];
- 
+const SCREEN_HEIGHT = height
+const SCREEN_WIDTH = width
+const ASPECT_RATION = width / height
 
-class MapScreen extends Component{
-    render(){  
-        return(
-          <View>
-        	<Container style={styles.containerStyle} >
-          </Container>
-          
-        	<Footer>
-          <FooterTab>
-            <Button>
-              <Icon name="home" />
-            </Button>
-            <Button>
-              <Icon name="search" />
-            </Button>
-            {/*<Button active>*/}
-            <Button>
-              <Icon active name="mail" />
-            </Button>
-            <Button>
-              <Icon name="person" />
-            </Button>
-          </FooterTab>
-        </Footer>
-        </View>
+const LATITUDE_DELTA = 0.0922
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 
-     );   
-    };
-};
-// start photo
+class MapScreen1 extends Component {
 
-// end photo
-const styles = {
-	containerStyle:{
-		flex: 1,
-		alignItems: 'center'
-	},
-	scrollviewStyle:{
-		flex:1,
-		backgroundColor: '#d0ece7',
+	
+		state = {
+			initialPosition: {
+				latitude: 0,
+				longitude: 0,
+				latitudeDelta: 0,
+				longitudeDelta: 0,
+			},
+			markerPosition: {
+				latitude: 0,
+				longitude: 0,
+			}
+		}
+	
 
-	},
-	textStyle:{
-		textAlign: 'center',
-		fontSize: 20,
-		color: 'green',
-		marginTop: 15
-	},
-	textStyle2:{
-		textAlign: 'center',
-		fontSize: 14,
-		color: '#5d6d7e',
-		marginTop: 10,
-		padding: 10
-	},
-	cardStyle: {
-		elevation: 1,
-		marginLeft: 5,
-		marginRight: 5,
-		marginTop: 10,
-		alignItems: 'center'
-	},
-	inputStyle: {
-    padding:10,
-    margin:10,
-    textAlign: 'center',
-    backgroundColor: 'white',
-    width:250,
-    borderRadius: 5,
-    color: '#5d6d7e',
-  },
-  inputStyleBio: {
-    padding:10,
-    margin:10,
-    textAlign: 'center',
-    backgroundColor: 'white',
-    width:250,
-    height:180,
-    borderRadius: 5,
-    color: '#5d6d7e',
-  },
-  photoBox: {
-  	backgroundColor:'white',
-  	height:100,
-  	width:250,
-  	textAlign: 'center',
-  	flex: 1,
-  	borderRadius: 5,
-  	// flexDirection: 'column',
-  	alignItems: 'center',
-  justifyContent: 'center'
-  },
-  cameraButton: {
-  	backgroundColor:'white',
-  	padding: 10
-  },
-  serviceButton:{
-  	backgroundColor: 'orange',
-  	color: '#ffffff',
-  	padding: 10,
-  	borderRadius: 5,
-  	marginTop:15
-  }
+	watchID: ?number = null
+
+	componentDidMount() {
+		navigator.geolocation .getCurrentPosition((position) => {
+			const lat = parseFloat(position.coords.latitude)
+			const long = parseFloat(position.coords.longitude)
+
+			const initialRegion = {
+				latitude: lat,
+				longitude: long,
+				latitudeDelta: LATITUDE_DELTA,
+				longitudeDelta: LONGITUDE_DELTA
+			}
+
+			this.setState({initialPosition: initionRegion})
+			this.setState({markerPosition: initialRegion})
+		}, (error) => alert(JSON.stringify(error)), 
+		{enableHighAccuracy: true, timeout: 20000, maximumAge:1000})
+
+		this.watchID = navigator.geolocation/watchPosition((position => {
+			const lat = parseFloat(position.coords.latitude)
+			const long = parseFloat(position.coords.longitude)
+
+			const lastRegion = {
+				latitide: lat,
+				longitude: long,
+				longitudeDelta: LONGITUDE_DELTA,
+				latitudeDelta: LATITUDE_DELTA
+			}
+
+			this.setState({initialPosition:lastRegion})
+			this.setState({markerPosition: lastRegion})
+		})
+			)
+	}
+
+	render(){
+			return (
+	      		<View>
+	      			<MapView
+	      				style={styles.map}
+	      				initialRegion={this.state.markerPosition}
+	      			>
+		      			// <MapView.Marker
+		      			// 	coordinate={this.state.markerPosition}
+		      			// >
+		      			// 	<View style={styles.radius}>
+		      			// 		<View style={styles.marker}>
+
+		      			// 		</View>
+		      			// 	</View>
+		      			// </MapView.Marker>
+	      			</MapView>
+	      		</View>
+	    	);
+   }
 }
 
-export default MapScreen;
+export default MapScreen1;

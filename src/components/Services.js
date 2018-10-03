@@ -12,7 +12,11 @@ import {
   TextInput, ScrollView
 } from 'react-native';
 import {createBottomTabNavigator} from 'react-navigation';
+
 import { ActionSheet, Picker, Form, Container, Header, Content, Card, CardItem, Thumbnail, FooterTab, Footer, Button, Icon, Left, Body, Right } from 'native-base';
+
+
+
 
 
 export default class Search extends Component {
@@ -47,8 +51,8 @@ export default class Search extends Component {
               iosHeader="Select Service"
               iosIcon={<Icon name="ios-arrow-down-outline" />}
               style={{ width: undefined }}
-              itemStyle={{ backgroundColor: '#666', marginLeft: 0, paddingLeft: 15, }}
-              itemTextStyle={{ fontSize: 18, color: 'white' }}
+              itemStyle={{ backgroundColor: '#666', marginLeft: 0, paddingLeft: 15 }}
+              itemTextStyle={{ fontSize: 15, color: 'white' }}
               selectedValue={this.state.selectedServices}
               onValueChange={this.onServiceChange.bind(this)}
             >
@@ -65,7 +69,7 @@ export default class Search extends Component {
               style={{ width: undefined }}
               selectedValue={this.state.selectedRadius}
               itemStyle={{ backgroundColor: '#666', marginLeft: 0, paddingLeft: 15}}
-              itemTextStyle={{ fontSize: 18, color: 'white' }}
+              itemTextStyle={{ fontSize: 15, color: 'white' }}
               onValueChange={this.onRadiusChange.bind(this)}
             >
               <Picker.Item label="Select Radius" value="key0" />
@@ -75,7 +79,10 @@ export default class Search extends Component {
               <Picker.Item label="10 Miles" value="key4" />
             </Picker>
           </Form>
-          <CardItem><Image source={require('./map.png')} style={styles.mapImage}/></CardItem>
+          <CardItem style={styles.mapBox}>
+
+
+          </CardItem>
         </Content>
       </Container>
     );
@@ -108,8 +115,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   mapBox:{
-    height:500
+    height:400,
+    borderRadius: 2,
+    borderColor: '#ddd',
   }, 
+  selectorText:{
+    color:'#fff',
+    fontSize:12,
+  },
   mapImage:{
     width:340
   }
