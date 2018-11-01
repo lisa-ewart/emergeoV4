@@ -90,7 +90,7 @@ class CreateProfile extends Component{
             />
             </View>
             <ScrollView>
-              <TouchableOpacity onPress={this.writeUserData} style={styles.serviceButton}> <Text>Services</Text></TouchableOpacity>
+              <TouchableOpacity onPress={this.writeUserData} style={styles.serviceButton}> Services </TouchableOpacity>
             </ScrollView>
 
             <View style={styles.center}>

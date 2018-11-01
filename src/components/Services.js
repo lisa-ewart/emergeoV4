@@ -80,8 +80,8 @@ export default class Search extends Component {
             </Picker>
           </Form>
           <CardItem style={styles.mapBox}>
-
-
+           
+          
           </CardItem>
         </Content>
       </Container>
