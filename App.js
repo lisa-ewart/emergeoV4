@@ -27,6 +27,7 @@ import Home from './src/components/Profile.js';
 import ServiceList from './src/components/ServiceList.js';
 import Auth from './src/components/Auth.js';
 import AccordionExample from './src/components/Accordion';
+
 // import ImageSelector from './src/components/ImageSelector.js';
 
 
