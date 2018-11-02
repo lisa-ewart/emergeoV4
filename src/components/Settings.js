@@ -29,7 +29,7 @@ export default class Settings extends Component {
 
   render() {
 
-    // console.log(logOut);
+    const {navigation} = this.props;
     return (  
          <Content>
         <View>
@@ -42,7 +42,7 @@ export default class Settings extends Component {
          <AccordionExample />
         </View>
         <View>
-          <SignOutButton />
+          <SignOutButton nav={navigation}/>
         </View>
         </Content>
     );

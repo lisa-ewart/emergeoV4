@@ -11,13 +11,14 @@ import {
   StatusBar
 } from 'react-native';
 import {app, auth, database} from './src/firebase';
-import {applyMiddleware, createStore} from 'redux';
-import thunk from 'redux-thunk';
+// import {applyMiddleware, createStore} from 'redux';
+// import thunk from 'redux-thunk';
 import {Provider, connect} from 'react-redux';
 import {createStackNavigator} from 'react-navigation';
+import configureStore from './src/components/configStore';
 // location imports
 import {accessPosition, watchPosition} from './src/actions/location_actions';
-import rootReducers from './src/reducers';
+// import rootReducers from './src/reducers';
 // screens and components
 import StartScreen from './src/components/StartScreen.js';
 import ChatScreen from './src/components/Chat.js';
@@ -74,6 +75,8 @@ componentWillMount(){
 }
 
 
+
+
 _requestLocation = async () =>{
   try{
     let status = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
@@ -88,8 +91,8 @@ _requestLocation = async () =>{
 }
 
   render() {
-    const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-    const store = createStoreWithMiddleware(rootReducers);
+    // const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+    const store = configureStore();
     const {loggedIn, currentUser} = this.state;
     console.log(this.props)
     

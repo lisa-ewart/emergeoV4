@@ -15,36 +15,18 @@ import {auth} from '../firebase';
 
 
 class Auth extends Component{
+
   state = {
     email: "",
     password: ""
   }
 
-  renderButton(){
-  switch(this.props.loggedIn){
-      case true:
-        return(
-          <TouchableOpacity onPress={()=>this._logOut()} style={styles.buttonStyle}>
-                  <Text style={styles.textStyle}>
-                  Sign Out
-                  </Text>
-              </TouchableOpacity>
-            )
-      default:
-        return(
-        <TouchableOpacity onPress={()=>this.signInOrCreateUser()} style={styles.buttonStyle}>
-                <Text style={styles.textStyle}>
-                Enter
-                </Text>
-        </TouchableOpacity>
-      )
-    }
-  }
+
 
     render(){  
       const {email, password} = this.state;
       const {signInOrCreateUser} = this.props;
-      console.log(this.props)
+      
         return(
           <View style={styles.containerStyle}>
              <StatusBar hidden={true} />
@@ -67,27 +49,25 @@ class Auth extends Component{
             </View>
 
             <View>
-              {this.renderButton()}
+               <TouchableOpacity onPress={()=>this._signInOrCreateUser()} style={styles.buttonStyle}>
+                  <Text style={styles.textStyle}>
+                    Enter
+                  </Text>
+                </TouchableOpacity>
             </View>
 
           </View>
-
-     );   
+        )  
   }
-
 
 // Auth function to sign in with firebase
 
- signInOrCreateUser(){
+_signInOrCreateUser(){
   const {email, password} = this.state;
-  
-
-    auth.signInWithEmailAndPassword(email, password).then(()=>{
+      auth.signInWithEmailAndPassword(email, password).then(()=>{
           this.props.navigate('Home')
            
-           console.log('im hit')
-
-    }).catch((e)=>{
+      }).catch((e)=>{
         alert(e.message)
           auth.createUserWithEmailAndPassword(email, password).then(()=>{
                 alert("USER CREATED")
@@ -101,24 +81,6 @@ class Auth extends Component{
   
     })
   }
-// end function
-
-// LogOut function
-_logOut(){
-  navigator.geolocation.stopObserving();
-  auth.signOut();
-  this.props.navigate('StartScreen');
-
-}
-// end function
-
- 
-
-// onLoginSuccess(){
-//   const {navigate} = this.props
-//   // navigate to next screen
-// }
-
 
 }
 
@@ -160,7 +122,7 @@ const styles = {
     // elevation: 1,
 
   }
-};
+}
 
 
 
