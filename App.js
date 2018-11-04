@@ -31,6 +31,7 @@ import AccordionExample from './src/components/Accordion';
 // import ImageSelector from './src/components/ImageSelector.js';
 
 
+const store = configureStore();
 
 const AppStackNavigator = createStackNavigator({
   StartScreen: {screen: StartScreen},
@@ -92,7 +93,6 @@ _requestLocation = async () =>{
 
   render() {
     // const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-    const store = configureStore();
     const {loggedIn, currentUser} = this.state;
     console.log(this.props)
     

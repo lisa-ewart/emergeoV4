@@ -12,20 +12,40 @@ import {
   TextInput, ScrollView
 } from 'react-native';
 import {createBottomTabNavigator} from 'react-navigation';
+import {connect} from 'react-redux';
+import {fetchServiceList, addToServiceList} from '../actions/services_actions';
+import {service_list} from '../reducers';
 
 import { ActionSheet, Picker, Form, Container, Header, Content, Card, CardItem, Thumbnail, FooterTab, Footer, Button, Icon, Left, Body, Right } from 'native-base';
 
 
 
 
-
-export default class Search extends Component {
+class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedServices: "key0",
-      selectedRadius: "key0"
+      selectedServices: 'key0',
+      selectedRadius: "key0",
+      serviceList: []
     };
+  }
+
+  componentWillMount(){
+    this.props.fetchServiceList();
+
+    // this.props.addToServiceList('Dog Walker');
+
+
+  }
+
+  componentWillReceiveProps(newProps){
+
+    const sl = Object.values(newProps.service_list);
+
+    this.setState({serviceList: sl})
+
+    
   }
 
   onServiceChange(value: string) {
@@ -40,8 +60,19 @@ export default class Search extends Component {
       selectedRadius: value
     })
   };
+
+   renderServiceItems = () => {
+     return this.state.serviceList.map(service =>
+     
+        <Picker.Item label={service.service_name} value={service.key} key={service.key} />
+    
+     )
+   }
+ 
   
   render() {
+    console.log(this.state);
+    console.log(this.props);
     return (
       <Container style={styles.containerStyle}>
         <Content>
@@ -54,13 +85,10 @@ export default class Search extends Component {
               itemStyle={{ backgroundColor: '#666', marginLeft: 0, paddingLeft: 15 }}
               itemTextStyle={{ fontSize: 15, color: 'white' }}
               selectedValue={this.state.selectedServices}
-              onValueChange={this.onServiceChange.bind(this)}
+              onValueChange={(itemValue, itemPosition)=> this.setState({selectedServices: itemValue})}
             >
               <Picker.Item label="Select Service" value="key0"/>
-              <Picker.Item label="Electrician" value="key1" />
-              <Picker.Item label="Plumber" value="key2" />
-              <Picker.Item label="Pest Control" value="key3" />
-              <Picker.Item label="Dog Walker" value="key4" />
+              {this.renderServiceItems(this)}
             </Picker>
             <Picker
               mode="dropdown"
@@ -128,3 +156,7 @@ const styles = StyleSheet.create({
   }
 
 });
+
+const mapStateToProps = ({service_list}) => ({service_list});
+
+export default connect(mapStateToProps, {fetchServiceList, addToServiceList})(Search);

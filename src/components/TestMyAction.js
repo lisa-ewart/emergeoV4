@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
-import {Text, View, TextInput, TouchableOpacity} from 'react-native';
+// import {addServiceToList} from '../actions/services_actions';
+const astl = require('../actions/services_actions/addToServiceList');
+astl(mechanic);
 
 
 

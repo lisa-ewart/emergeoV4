@@ -6,6 +6,7 @@ import {database} from '../firebase';
 export const GRAB_SERVICES = 'grab_services';
 export const MARK_CHECKED = 'mark_checked';
 export const SELECT_SERVICE = 'select_service';
+export const FETCH_SERVICE_LIST = 'fetch_service_list';
 
 
 
@@ -49,3 +50,29 @@ export const selectService = (selectedServices) =>{
 		payload: selectedServices
 	}
 }
+
+//FETCH SERVISE LIST IN DB
+export const fetchServiceList = ()=>{
+	return dispatch =>{
+		database.ref('Services/').on('value', data =>{
+			dispatch({
+				type: FETCH_SERVICE_LIST,
+				payload: data.val()
+			})
+		})
+	}
+}
+
+//ADD SERVICE TO SERVICE_LIST IN DB
+export const addToServiceList =(serviceName)=>{
+	return dispatch =>{
+		const key = database.ref('Services/').push().key;
+		database.ref('Services/').push({
+			service_name: serviceName,
+			key: key
+
+		})
+	}
+}
+
+
